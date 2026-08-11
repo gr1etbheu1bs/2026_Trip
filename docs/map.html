@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>位置関係・地図 | 親子科学旅行 Gプラン</title>
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-row">
+      <a class="brand" href="index.html"><span class="brand-mark">旅</span><span>親子科学旅行 Gプラン</span></a>
+    </div>
+    <nav class="site-nav" aria-label="ページ移動">
+      <a href="index.html">日程</a>
+      <a href="facilities.html">候補</a>
+      <a href="hotels.html">ホテル</a>
+      <a href="planetarium.html">プラネ</a>
+      <a class="active" href="map.html">地図</a>
+      <a href="sources.html">根拠</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <section class="page-title">
+      <p class="eyebrow">Map</p>
+      <h1>候補地の位置関係</h1>
+      <p>サイエンスドームを中間地点として、北東グループと南西グループに分けて見ます。ホテル選びは、8/12にどちらへ寄せるかで大きく変わります。</p>
+    </section>
+
+    <section class="map-layout">
+      <div class="map-panel">
+        <iframe
+          data-google-map
+          title="候補地のGoogle Map"
+          loading="lazy"
+          src="https://maps.google.com/maps?q=%E3%82%B3%E3%83%8B%E3%82%AB%E3%83%9F%E3%83%8E%E3%83%AB%E3%82%BF%20%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9%E3%83%89%E3%83%BC%E3%83%A0&z=13&output=embed"></iframe>
+        <a class="map-open-link" data-map-open-link href="https://www.google.com/maps/search/?api=1&query=%E3%82%B3%E3%83%8B%E3%82%AB%E3%83%9F%E3%83%8E%E3%83%AB%E3%82%BF%20%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9%E3%83%89%E3%83%BC%E3%83%A0" target="_blank" rel="noopener">Google Mapsで開く</a>
+        <p class="map-caption">下の図は、Google Mapとは別に用意した「候補地の位置関係ラフ図」です。北東・中間・南西のまとまりを把握するための補助です。</p>
+        <div class="map-sketch" aria-label="候補地の位置関係ラフ図">
+          <div class="map-sketch-title">位置関係ラフ図</div>
+          <div class="map-node tama">多摩六都科学館<small>北東</small></div>
+          <div class="map-node tachikawa">立川防災館<small>8/13休館</small></div>
+          <div class="map-node hachioji">サイエンスドーム<small>中間</small></div>
+          <div class="map-node jaxa">JAXA相模原<small>南西</small></div>
+          <div class="map-node sagami">相模川ふれあい科学館<small>雨・満車注意</small></div>
+          <div class="map-node hotel">相模原/八王子/立川<small>宿泊候補</small></div>
+        </div>
+      </div>
+      <div class="map-list">
+        <p class="map-list-title">ルート候補</p>
+        <button type="button" class="active" data-map-button data-open-label="北東→八王子をGoogle Mapsで開く" data-open-url="https://www.google.com/maps/dir/?api=1&origin=%E5%A4%9A%E6%91%A9%E5%85%AD%E9%83%BD%E7%A7%91%E5%AD%A6%E9%A4%A8&destination=%E3%82%B3%E3%83%8B%E3%82%AB%E3%83%9F%E3%83%8E%E3%83%AB%E3%82%BF%20%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9%E3%83%89%E3%83%BC%E3%83%A0%20%E5%85%AB%E7%8E%8B%E5%AD%90&waypoints=%E7%AB%8B%E5%B7%9D%E9%98%B2%E7%81%BD%E9%A4%A8&travelmode=driving" data-map-url="https://maps.google.com/maps?f=d&source=s_d&saddr=%E5%A4%9A%E6%91%A9%E5%85%AD%E9%83%BD%E7%A7%91%E5%AD%A6%E9%A4%A8&daddr=%E7%AB%8B%E5%B7%9D%E9%98%B2%E7%81%BD%E9%A4%A8%20to:%E3%82%B3%E3%83%8B%E3%82%AB%E3%83%9F%E3%83%8E%E3%83%AB%E3%82%BF%20%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9%E3%83%89%E3%83%BC%E3%83%A0%20%E5%85%AB%E7%8E%8B%E5%AD%90&hl=ja&output=embed">北東→八王子</button>
+        <button type="button" data-map-button data-open-label="八王子→南西をGoogle Mapsで開く" data-open-url="https://www.google.com/maps/dir/?api=1&origin=35.664,139.329&destination=35.551,139.332&waypoints=35.558,139.392&travelmode=driving" data-map-url="https://maps.google.com/maps?f=d&source=s_d&saddr=35.664,139.329&daddr=35.558,139.392%20to:35.551,139.332&hl=ja&output=embed">八王子→南西</button>
+        <p class="map-list-title">施設</p>
+        <button type="button" data-map-button data-query="多摩六都科学館">多摩六都科学館</button>
+        <button type="button" data-map-button data-query="立川防災館">立川防災館</button>
+        <button type="button" data-map-button data-query="コニカミノルタ サイエンスドーム">サイエンスドーム</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.558,139.392&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=JAXA%20%E5%AE%87%E5%AE%99%E7%A7%91%E5%AD%A6%E7%A0%94%E7%A9%B6%E6%89%80%20%E7%9B%B8%E6%A8%A1%E5%8E%9F%E3%82%AD%E3%83%A3%E3%83%B3%E3%83%91%E3%82%B9%20%E5%AE%87%E5%AE%99%E7%A7%91%E5%AD%A6%E6%8E%A2%E6%9F%BB%E4%BA%A4%E6%B5%81%E6%A3%9F" data-query="JAXA 宇宙科学研究所 相模原キャンパス 宇宙科学探査交流棟">JAXA探査交流棟</button>
+        <button type="button" data-map-button data-query="相模川ふれあい科学館 アクアリウムさがみはら">相模川ふれあい科学館</button>
+        <p class="map-list-title">ホテル候補</p>
+        <button type="button" data-map-button data-query="ホテルルートイン相模原 国道129号">ルートイン相模原</button>
+        <button type="button" data-map-button data-query="ラクシオ・イン 町田">ラクシオ・イン</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.657,139.344&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=R%26B%E3%83%9B%E3%83%86%E3%83%AB%E5%85%AB%E7%8E%8B%E5%AD%90%E3%83%AF%E3%82%B7%E3%83%B3%E3%83%88%E3%83%B3" data-query="R&amp;Bホテル八王子ワシントン">R&amp;B八王子</button>
+        <button type="button" data-map-button data-query="スーパーホテル東京 JR立川北口">スーパーホテル立川</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.697,139.413&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=%E7%AB%8B%E5%B7%9D%E3%83%AF%E3%82%B7%E3%83%B3%E3%83%88%E3%83%B3%E3%83%9B%E3%83%86%E3%83%AB" data-query="立川ワシントンホテル">立川ワシントン</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.568,139.395&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E6%A8%AAINN%E6%A8%AA%E6%B5%9C%E7%B7%9A%E6%B7%B5%E9%87%8E%E8%BE%BA%E9%A7%85%E5%8D%97%E5%8F%A3" data-query="東横INN横浜線淵野辺駅南口">東横INN淵野辺</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.700,139.481&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=JR%E6%9D%B1%E6%97%A5%E6%9C%AC%E3%83%9B%E3%83%86%E3%83%AB%E3%83%A1%E3%83%83%E3%83%84%20%E5%9B%BD%E5%88%86%E5%AF%BA" data-query="JR東日本ホテルメッツ 国分寺">メッツ国分寺</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.7019,139.5451&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=JR%E6%9D%B1%E6%97%A5%E6%9C%AC%E3%83%9B%E3%83%86%E3%83%AB%E3%83%A1%E3%83%83%E3%83%84%20%E6%AD%A6%E8%94%B5%E5%A2%83" data-query="JR東日本ホテルメッツ 武蔵境">メッツ武蔵境</button>
+        <button type="button" data-map-button data-map-url="https://maps.google.com/maps?q=35.750,139.472&z=15&output=embed" data-open-url="https://www.google.com/maps/search/?api=1&query=%E4%B9%85%E7%B1%B3%E5%B7%9D%E3%82%A6%E3%82%A4%E3%83%B3%E3%82%B0%E3%83%9B%E3%83%86%E3%83%AB" data-query="久米川ウイングホテル">久米川ウイング</button>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Route Notes</p>
+          <h2>位置関係メモ</h2>
+        </div>
+      </div>
+      <div class="table-wrap compact-table">
+        <table>
+          <thead>
+            <tr>
+              <th>まとまり</th>
+              <th>施設</th>
+              <th>ユーザー確認の距離感</th>
+              <th>計画上の意味</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">北東グループ</th>
+              <td>多摩六都科学館 → 立川防災館 → サイエンスドーム</td>
+              <td>Google Mapsスクリーンショット上で約1時間25分 / 27.8km</td>
+              <td>同日に詰めると移動が長い。多摩六都をメインにするなら午前から使う。</td>
+            </tr>
+            <tr>
+              <th scope="row">南西グループ</th>
+              <td>サイエンスドーム → JAXA相模原 → 相模川ふれあい科学館</td>
+              <td>Google Mapsスクリーンショット上で約1時間4分 / 24.6km</td>
+              <td>12時出発ならJAXA午後、相模川は天候と駐車場次第で外す。</td>
+            </tr>
+            <tr>
+              <th scope="row">中間地点</th>
+              <td>サイエンスドーム</td>
+              <td>北東・南西のどちらにもつなぎやすい</td>
+              <td>8/12の天候が悪い時の保険。ホテルを八王子周辺に寄せる案と相性がよい。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="note-box warning">
+      <h2>地図上の結論</h2>
+      <p>8/12に南西へ寄せるなら相模原・橋本寄り、北東へ寄せるなら立川・八王子寄りが自然です。サイエンスドームは中間地点なので、出発時刻やホテル空室が決まらない段階の保険に向いています。</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>移動時間はGoogle Mapsのスクリーンショットをもとにした目安です。実走前に最新の交通規制・渋滞・天候を確認してください。</p>
+  </footer>
+  <script src="assets/site.js"></script>
+</body>
+</html>
