@@ -170,54 +170,95 @@
     dates.forEach(date => dateSelect.add(new Option(`${date.slice(5).replace('-','/')}（${'月火水木金土日'[dates.indexOf(date)]}）`,date)));
     Object.entries(plans).forEach(([id,plan]) => candidateSelect.add(new Option(`${plan.name}（${plan.stay}分）`,id)));
     function formatTime(minutes) { return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`; }
+    function fixedToken(id) { return `@fixed:${id}`; }
+    function ensureSequence(date) {
+      const fixed = fixedSchedules[date] || [];
+      const fixedTokens = fixed.map(item => fixedToken(item.id));
+      const stored = Array.isArray(dayPlans[date]) ? dayPlans[date] : [];
+      const validFixed = new Set(fixedTokens);
+      let sequence = stored.filter(token => plans[token] || validFixed.has(token));
+      if (fixedTokens.length && !sequence.some(token => validFixed.has(token))) sequence = [...sequence,...fixedTokens];
+      fixedTokens.forEach(token => { if (!sequence.includes(token)) sequence.push(token); });
+      dayPlans[date] = sequence;
+      return sequence;
+    }
     function itemsForDay(date) {
-      const variables = (dayPlans[date] || []).map(id => ({id,type:'variable',...plans[id]})).filter(item => item.name);
-      return [...variables,...(fixedSchedules[date] || [])].sort((a,b) => a.type === b.type ? 0 : a.type === 'fixed' ? 1 : -1);
+      const fixedById = new Map((fixedSchedules[date] || []).map(item => [item.id,item]));
+      return ensureSequence(date).map(token => {
+        if (token.startsWith('@fixed:')) return fixedById.get(token.slice(7));
+        return plans[token] ? {id:token,type:'variable',...plans[token]} : null;
+      }).filter(Boolean);
     }
     function save() { localStorage.setItem(plannerStorageKey,JSON.stringify(dayPlans)); }
     function renderPlanner() {
       const date = dateSelect.value;
+      const sequence = ensureSequence(date);
       const items = itemsForDay(date);
       constraint.hidden = date !== '2026-08-20';
       constraint.textContent = date === '2026-08-20' ? '制約日: 父親は終日会議のため遠方移動不可（近場のみ）' : '';
-      let clock = 9*60, previous = base, uncertain = false;
+      let clock = 9*60, lowerBound = 9*60, previous = base, exact = true;
       const warnings = [];
       schedule.replaceChildren();
       items.forEach((item,index) => {
         const travel = previous === item.destination ? 0 : travelTimes.get(`${previous}|${item.destination}`);
-        if (travel === undefined) uncertain = true; else clock += travel;
-        let start = clock;
+        if (travel === undefined) exact = false;
+        else {
+          lowerBound += travel;
+          if (exact) clock += travel;
+        }
+        let start = exact ? clock : null;
         if (item.type === 'fixed') {
           const deadline = item.deadline ?? item.time;
-          if (uncertain) warnings.push(`${item.name}: 移動時間未登録のため到着可否を確認してください。`);
-          else if (clock > deadline) warnings.push(`${item.name}: この並びでは固定予定に間に合いません（到着見込み ${formatTime(clock)}）。`);
+          if (lowerBound > deadline) warnings.push(`${item.name}: この並びでは固定予定に間に合いません（既知の時間だけで ${formatTime(lowerBound)} 以降）。`);
+          else if (!exact) warnings.push(`${item.name}: 移動時間未登録のため到着可否を確認してください。`);
           start = item.time;
           clock = item.time + item.stay;
-          uncertain = false;
-        } else clock += item.stay;
-        const end = item.type === 'fixed' ? item.time + item.stay : clock;
+          lowerBound = clock;
+          exact = true;
+        } else {
+          lowerBound += item.stay;
+          if (exact) clock += item.stay;
+        }
+        const end = item.type === 'fixed' ? item.time + item.stay : (exact ? clock : null);
         const card = document.createElement('article');
         card.className = `schedule-card ${item.type === 'fixed' ? 'fixed' : ''}`;
         const text = document.createElement('div');
-        const timeLabel = item.stay ? `${formatTime(start)}〜${formatTime(end)}` : `${formatTime(start)} anchor`;
+        const timeLabel = item.type === 'fixed'
+          ? (item.stay ? `${formatTime(item.time)}〜${formatTime(end)}` : `${formatTime(item.time)} anchor`)
+          : (start === null || end === null ? '時刻未確定' : `${formatTime(start)}〜${formatTime(end)}`);
         text.innerHTML = `<h3>${item.name}</h3><p><strong>${item.type === 'fixed' ? '固定予定' : '可変候補'}</strong> · 想定滞在 ${item.stay ? `${item.stay}分` : '未設定'} · ${timeLabel}</p><p>直前地点から: ${travel === undefined ? '移動時間未登録' : `移動 約${travel}分`}${item.note ? ` · ${item.note}` : ''}</p>`;
         card.append(text);
         if (item.type === 'variable') {
-          const variableIndex = (dayPlans[date] || []).indexOf(item.id);
+          const sequenceIndex = sequence.indexOf(item.id);
           const actions = document.createElement('div'); actions.className = 'schedule-actions';
           [['↑',-1,'上へ移動'],['↓',1,'下へ移動']].forEach(([symbol,delta,label]) => {
             const button = document.createElement('button'); button.type='button'; button.textContent=symbol; button.setAttribute('aria-label',`${item.name}を${label}`);
-            button.disabled = variableIndex + delta < 0 || variableIndex + delta >= (dayPlans[date] || []).length;
-            button.addEventListener('click',() => { const list=dayPlans[date]; [list[variableIndex],list[variableIndex+delta]]=[list[variableIndex+delta],list[variableIndex]]; save(); renderPlanner(); }); actions.append(button);
+            button.disabled = sequenceIndex + delta < 0 || sequenceIndex + delta >= sequence.length;
+            button.addEventListener('click',() => {
+              const list = ensureSequence(date);
+              const from = list.indexOf(item.id);
+              const to = from + delta;
+              [list[from],list[to]] = [list[to],list[from]];
+              dayPlans[date] = list;
+              save(); renderPlanner();
+            });
+            actions.append(button);
           });
           card.append(actions);
         }
-        schedule.append(card); previous = item.destination;
+        schedule.append(card);
+        previous = item.destination;
       });
       if (!items.length) schedule.innerHTML = '<p>予定はまだありません。上の候補を追加してください。</p>';
       warningBox.innerHTML = warnings.map(message => `<p class="warning">⚠ ${message}</p>`).join('');
     }
-    document.querySelector('[data-add-plan]').addEventListener('click',() => { const date=dateSelect.value; dayPlans[date] ||= []; if (!dayPlans[date].includes(candidateSelect.value)) dayPlans[date].push(candidateSelect.value); save(); renderPlanner(); });
+    document.querySelector('[data-add-plan]').addEventListener('click',() => {
+      const date = dateSelect.value;
+      const list = ensureSequence(date);
+      if (!list.includes(candidateSelect.value)) list.push(candidateSelect.value);
+      dayPlans[date] = list;
+      save(); renderPlanner();
+    });
     dateSelect.addEventListener('change',renderPlanner);
     renderPlanner();
   </script>
