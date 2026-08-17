@@ -23,6 +23,20 @@
     section { margin-bottom:42px; }
     h2 { margin:0 0 14px; font-size:clamp(1.45rem,4vw,2rem); }
     .intro { color:var(--muted); margin-top:-8px; }
+    .week-calendar { display:grid; gap:12px; }
+    .calendar-note { margin:0 0 14px; padding:12px 16px; border-left:5px solid var(--green); border-radius:8px; background:#edf7f2; font-weight:800; }
+    .calendar-day { display:grid; grid-template-columns:minmax(76px,auto) minmax(0,1fr); gap:14px; width:100%; min-height:72px; margin:0; padding:14px 16px; align-items:start; text-align:left; color:var(--ink); border:1px solid var(--line); border-left:5px solid var(--gold); border-radius:14px; background:var(--card); box-shadow:0 6px 18px #15372b0b; }
+    .calendar-day:hover,.calendar-day:focus-visible { color:var(--ink); background:#f4faf7; outline:3px solid #28745f44; outline-offset:2px; }
+    .calendar-day.actual { border-left-color:var(--blue); }
+    .calendar-day.candidate-day { border-left-color:var(--green); }
+    .calendar-day.undecided { border-left-color:#889792; }
+    .calendar-date { font-size:1.05rem; font-weight:900; white-space:nowrap; }
+    .calendar-events { display:grid; gap:5px; min-width:0; }
+    .status-label { justify-self:start; padding:2px 9px; border-radius:99px; color:#57400f; background:#fff0c8; font-size:.75rem; font-weight:900; }
+    .actual .status-label { color:#234d64; background:#e2f0f8; }
+    .candidate-day .status-label { color:#145342; background:#dff2e9; }
+    .undecided .status-label { color:#44514d; background:#e8ecea; }
+    .calendar-events p { margin:0; font-weight:600; }
     .timeline-grid,.candidate-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
     .panel,.candidate,.planner { border:1px solid var(--line); border-radius:18px; background:var(--card); box-shadow:0 8px 24px #15372b0b; }
     .panel { padding:22px; border-top:5px solid var(--blue); }
@@ -63,7 +77,7 @@
     .add-buttons { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
     .add-buttons button { margin-top:0; }
     footer { padding:24px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--line); }
-    @media (max-width:600px) { header { padding-top:34px; } .wrap { width:min(100% - 24px,1100px); } .day-controls,.schedule-card { grid-template-columns:1fr; } .schedule-actions { grid-template-columns:repeat(2,minmax(48px,1fr)); } .schedule-actions button { width:100%; } }
+    @media (max-width:600px) { header { padding-top:34px; } .wrap { width:min(100% - 24px,1100px); } .calendar-day { grid-template-columns:68px minmax(0,1fr); gap:10px; padding:13px 12px; } .day-controls,.schedule-card { grid-template-columns:1fr; } .schedule-actions { grid-template-columns:repeat(2,minmax(48px,1fr)); } .schedule-actions button { width:100%; } }
   </style>
 </head>
 <body>
@@ -77,6 +91,22 @@
     </div>
   </header>
   <main class="wrap">
+    <section aria-labelledby="week-calendar-title">
+      <p class="eyebrow">Trip week</p><h2 id="week-calendar-title">旅行週間カレンダー</h2>
+      <p class="intro">日付を選ぶと、このページ内の「1日の予定を組み立てる」へ移動します。</p>
+      <p class="calendar-note">共通予定: 毎朝 朝食ブッフェ</p>
+      <div class="week-calendar">
+        <button class="calendar-day actual" type="button" data-calendar-date="2026-08-16"><span class="calendar-date">8/16（日）</span><span class="calendar-events"><span class="status-label">実績</span><p>軽井沢へ移動 / アウトレット17:30頃 / 新軽井沢花火大会 / コテージチェックイン</p></span></button>
+        <button class="calendar-day actual" type="button" data-calendar-date="2026-08-17"><span class="calendar-date">8/17（月）</span><span class="calendar-events"><span class="status-label">実績</span><p>コテージ内・周辺 / 18:45 ピザーラ夕食</p></span></button>
+        <button class="calendar-day" type="button" data-calendar-date="2026-08-18"><span class="calendar-date">8/18（火）</span><span class="calendar-events"><span class="status-label">確定制約</span><p>14時頃 オンライン会議</p></span></button>
+        <button class="calendar-day" type="button" data-calendar-date="2026-08-19"><span class="calendar-date">8/19（水）</span><span class="calendar-events"><span class="status-label">確定予定</span><p>14時頃 祖父を軽井沢駅で迎える / 15:00〜17:00 風越公園テニス</p></span></button>
+        <button class="calendar-day" type="button" data-calendar-date="2026-08-20"><span class="calendar-date">8/20（木）</span><span class="calendar-events"><span class="status-label">確定予定・制約</span><p>父親終日会議・遠方移動不可 / 19:30 いろどりDINING 彩‐SAI‐夕食</p></span></button>
+        <button class="calendar-day candidate-day" type="button" data-calendar-date="2026-08-21"><span class="calendar-date">8/21（金）</span><span class="calendar-events"><span class="status-label">候補（未確定）</span><p>風越公園カーリング90分体験</p></span></button>
+        <button class="calendar-day undecided" type="button" data-calendar-date="2026-08-22"><span class="calendar-date">8/22（土）</span><span class="calendar-events"><span class="status-label">未定</span><p>確定予定なし</p></span></button>
+        <button class="calendar-day undecided" type="button" data-calendar-date="2026-08-23"><span class="calendar-date">8/23（日）</span><span class="calendar-events"><span class="status-label">未定</span><p>確定予定なし</p></span></button>
+      </div>
+    </section>
+
     <section aria-labelledby="timeline-title">
       <p class="eyebrow">Trip status</p><h2 id="timeline-title">実績と固定予定</h2>
       <div class="timeline-grid">
@@ -171,8 +201,9 @@
       ['軽井沢駅|軽井沢風越公園 / 軽井沢アイスパーク',15], ['軽井沢おもちゃ王国|竹内ゴルフ練習場',10], ['竹内ゴルフ練習場|軽井沢おもちゃ王国',10]
     ]);
     const dayPlans = (() => { try { return JSON.parse(localStorage.getItem(plannerStorageKey)) || {}; } catch { return {}; } })();
-    const dates = ['2026-08-17','2026-08-18','2026-08-19','2026-08-20','2026-08-21','2026-08-22','2026-08-23'];
-    dates.forEach(date => dateSelect.add(new Option(`${date.slice(5).replace('-','/')}（${'月火水木金土日'[dates.indexOf(date)]}）`,date)));
+    const dates = ['2026-08-16','2026-08-17','2026-08-18','2026-08-19','2026-08-20','2026-08-21','2026-08-22','2026-08-23'];
+    const weekdays = ['日','月','火','水','木','金','土','日'];
+    dates.forEach((date,index) => dateSelect.add(new Option(`${date.slice(5).replace('-','/')}（${weekdays[index]}）`,date)));
     Object.entries(plans).forEach(([id,plan]) => candidateSelect.add(new Option(`${plan.name}（${plan.stay}分）`,id)));
     function formatTime(minutes) { return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`; }
     function fixedToken(id) { return `@fixed:${id}`; }
@@ -265,6 +296,11 @@
       save(); renderPlanner();
     });
     dateSelect.addEventListener('change',renderPlanner);
+    document.querySelectorAll('[data-calendar-date]').forEach(day => day.addEventListener('click',() => {
+      dateSelect.value = day.dataset.calendarDate;
+      renderPlanner();
+      document.querySelector('.day-planner').scrollIntoView({behavior:'smooth',block:'start'});
+    }));
     renderPlanner();
   </script>
 </body>
