@@ -4,9 +4,9 @@ Status: READY
 
 ## Goal
 
-軽井沢旅行を既存旅行とは完全に別の旅行として管理できる最小構成を追加する。
+2026年軽井沢旅行を既存旅行とは完全に別管理にし、現時点で確定・検討している実績、固定予定、候補を確認できる最小の旅行Top pageを作る。
 
-このtaskのgoalは **軽井沢旅行専用のnamespaceとTop pageを新設すること** の1点だけ。
+このtaskは **軽井沢旅行の独立したTop pageと初期データを成立させる** 1 goalだけ。
 
 ## Required context
 
@@ -17,55 +17,91 @@ Status: READY
 - `docs/tasks/ACTIVE.md`
 - `docs/index.html`
 
-必要になった場合のみ、既存Top pageの見た目・共通asset参照確認のため次を読むこと。
+必要な場合のみ、`docs/index.html` が実際に参照する既存assetを確認する。
 
-- `docs/assets/` 配下の、`docs/index.html` から実際に参照されているfileだけ
-
-`docs/data/*.csv` はこのtaskでは変更しないため、原則として読まないこと。
+既存 `docs/data/*.csv` は別旅行のdataなので読まない・変更しない。
 
 ## Scope
 
-以下だけを実装する。
+1. 軽井沢旅行専用directory `docs/trips/karuizawa/` を新設する。
+2. `docs/trips/karuizawa/index.html` を軽井沢旅行専用Top pageとして作る。
+3. `docs/trips/karuizawa/data/` に、この旅行だけの初期structured dataを置く。schemaは今回必要な情報だけを表現する最小構成とし、既存旅行CSVへ混在させない。
+4. Top pageでは少なくとも次を区別して確認できるようにする。
+   - 訪問済み・実績
+   - 固定予定・制約
+   - 検討中の候補
+5. 旅行期間は `2026-08-16` から `2026-08-23`。
+6. 現時点の入力事実として以下を登録する。
 
-1. 軽井沢旅行専用directoryを `docs/trips/karuizawa/` として新設する。
-2. `docs/trips/karuizawa/index.html` を新設し、既存旅行とは別のTop pageとして成立させる。
-3. 軽井沢Top pageには最低限、以下を明示する。
-   - `2026 軽井沢旅行`
-   - 旅行期間 `2026-08-16〜2026-08-23`
-   - 今後この旅行専用の候補地・訪問済み場所・旅程を管理するページであること
-4. 今後の軽井沢専用dataを置くnamespaceとして `docs/trips/karuizawa/data/` を作る。Gitが空directoryを保持できないため、必要なら説明用の最小README等を置いてよい。
-5. 軽井沢Top pageから参照するpathは `docs/trips/karuizawa/` 配下を基準に壊れないrelative pathにする。
-6. 既存の `docs/index.html` と既存旅行データ・ページは壊さず、そのまま利用可能な状態を維持する。
+### 訪問済み・実績
+
+- 2026-08-16（日）午後に軽井沢へ車移動。
+- 移動途中、東名・環八付近のローソンでおにぎり等を購入して昼食。
+- 17:30頃、軽井沢・プリンスショッピングプラザ（アウトレット）到着。
+- その後パン屋で軽食。店名は未確定として扱い、推測しない。
+- 新軽井沢の花火大会を観覧。
+- 武舎煙火の社長と話した。
+- その後、軽井沢プリンスホテル ウエストのコテージへチェックイン。
+- 2026-08-17（月）は朝食ブッフェを利用し、息子の疲れも考慮してプリンスウエスト・アウトレット周辺でゆっくり過ごす方針。遠出しない。
+
+### 宿泊中の基本予定
+
+- 滞在中は毎朝、宿泊プランに含まれる朝食ブッフェを利用予定。
+
+### 固定予定・制約
+
+- 2026-08-18（火）14時頃、父親にオンライン会議あり。安定した電波と、車内または会議可能な場所を確保する必要がある。それ以外の時間は融通可能。
+- 2026-08-19（水）14時頃、息子から見て祖父が軽井沢駅に到着。迎えに行き、そのまま風越公園へ移動。
+- 2026-08-19（水）15:00〜17:00、風越公園でテニス予定。
+- 2026-08-20（木）は父親が終日会議のため遠方へ移動不可。家族は軽井沢プリンスホテル ウエスト内またはアウトレット周辺で過ごす予定。
+
+### 検討中の候補
+
+- 軽井沢おもちゃ王国：雨の心配が少ない日に行きたい。車移動時間が長いため、同方面の候補と組み合わせることも考慮する。
+- パターゴルフ：今回挙げられたゴルフ関連候補は、本格的なゴルフではなく家族でパターゴルフをする候補として扱う。
+- 風越公園のカーリング90分体験：現実的な予約候補日は2026-08-21（金）。実施未確定。祖父は参加せず、見学または別行動予定。
+- ボウリング：息子の希望があり旅行中に行う予定。候補は浅間ハイランドパーク方面またはアウトレット周辺のボウリング施設。どちらに行くかは未確定。
+- 上田・佐久方面は候補として話題に出たが、現時点では一旦保留。今回の初期Top pageで具体的な訪問予定として確定しない。
+
+7. 未確定の施設名、営業時間、料金、予約可否、Google Maps短縮URLのリンク先名称を推測で補完しない。
+8. 既存 `docs/index.html` と既存旅行のHTML / CSVは変更しない。
 
 ## Required behavior tests
 
-- `docs/trips/karuizawa/index.html` が単独の軽井沢旅行Top pageとして開ける。
-- ページ上で `2026 軽井沢旅行` と `2026-08-16〜2026-08-23` が確認できる。
-- 既存 `docs/index.html` はこのtask前と同じ入口として引き続き開ける。
-- 既存 `docs/data/*.csv` に変更がない。
-- 軽井沢用のfileが既存旅行のdata directoryへ混在していない。
+- `docs/trips/karuizawa/index.html` を単独で開いて「2026 軽井沢旅行」「2026-08-16〜2026-08-23」が確認できる。
+- 訪問済み・固定予定/制約・候補が視覚的に区別される。
+- 8/16の実績、8/18会議、8/19祖父迎え＋テニス、8/20終日会議、8/21カーリング候補が確認できる。
+- カーリングは確定予定ではなく検討中として表示される。
+- ボウリングの施設は未確定の2候補として扱われる。
+- 上田・佐久は確定旅程として表示されない。
+- 既存 `docs/data/*.csv` と既存旅行HTMLに変更がない。
+- privateな住所、予約番号、メール、電話番号等が追加されていない。
 
 ## Tests
 
 最低限、次を実行する。
 
 - `git diff --check`
-- `git diff --name-only` で変更fileがこのtask scope内であることを確認
-- `grep -n "2026 軽井沢旅行\|2026-08-16" docs/trips/karuizawa/index.html`
-- relative link / asset pathを目視または静的確認し、`docs/trips/karuizawa/index.html` から404になる明らかな参照を作っていないことを確認
+- `git diff --name-only`
+- `grep -n "2026 軽井沢旅行\|2026-08-16\|2026-08-18\|2026-08-19\|2026-08-20\|2026-08-21" docs/trips/karuizawa/index.html`
+- 軽井沢用structured dataを追加した場合、そのCSV等の列数・構造が全rowで一貫していることを最小限確認する
+- relative link / asset pathを静的または目視確認する
 
-repo-wide testやWeb調査は不要。
+repo-wide testや外部Web調査は行わない。
 
 ## Do not
 
 - 既存 `docs/index.html` を旅行選択Top pageへ変更しない
-- 既存旅行のHTMLを移動・renameしない
-- `docs/data/*.csv` を移動・変更しない
-- 軽井沢の候補地や訪問済み施設を推測して追加しない
-- 新しいCSV schemaを設計しない
+- 既存旅行のHTML / CSVを移動・rename・変更しない
+- Google Maps短縮URLをWeb検索して施設名を推測しない
+- 上田・佐久方面を確定旅程へ入れない
+- カーリングを予約済み・実施確定として扱わない
+- ボウリング施設を勝手に1つへ決定しない
+- おもちゃ王国の日付を勝手に決定しない
+- 未確認の料金・営業時間・移動時間を追加しない
 - React / Next.js等のframeworkを追加しない
 - build system / backend / API / database / authenticationを追加しない
-- dependencyを追加・upgradeしない
+- dependency追加・upgradeをしない
 - unrelated refactorをしない
 - privacy情報をcommitしない
 - 将来の他旅行namespaceを先回りして作らない
@@ -74,19 +110,21 @@ repo-wide testやWeb調査は不要。
 
 ### Title
 
-軽井沢旅行専用Top pageを追加 / Add dedicated Karuizawa trip top page
+軽井沢旅行の初期ページと旅程データを追加 / Add initial Karuizawa trip page and itinerary data
 
 ### Body requirements
-
-必ず次の順序にする。
 
 # 日本語
 
 - 概要
 - 変更内容
-- 設計上の判断: 既存旅行を変更せず、まず軽井沢だけを `docs/trips/karuizawa/` に分離したこと
-- 意図的に未実装: rootの旅行選択ページ化、既存旅行のnamespace移行、軽井沢の実データ登録
+- 設計上の判断
+- 意図的に未実装
 - Tests
+
+設計上の判断には、既存旅行を変更せず `docs/trips/karuizawa/` に完全分離したこと、確定・実績・候補を区別したことを書く。
+
+意図的に未実装には、root旅行選択ページ、既存旅行namespace移行、未確定候補の日付決定、外部情報の再調査を含める。
 
 ---
 
@@ -94,16 +132,20 @@ repo-wide testやWeb調査は不要。
 
 - Summary
 - Changes
-- Design decision: Karuizawa is isolated under `docs/trips/karuizawa/` without moving the existing trip yet
-- Intentionally deferred: root trip selector, migration of the existing trip into its own namespace, actual Karuizawa travel data
+- Design decisions
+- Intentionally deferred
 - Tests
+
+日本語と英語を行ごとに混在させない。
 
 ## Completion
 
 次をすべて満たしたら完了。
 
 - `docs/trips/karuizawa/index.html` が追加されている
-- 軽井沢専用data namespaceが `docs/trips/karuizawa/data/` として用意されている
+- 軽井沢専用structured dataが `docs/trips/karuizawa/data/` に存在する
+- 現時点の実績・固定予定・制約・候補が事実どおり区別して表示される
+- 未確定情報を推測していない
 - 既存旅行のHTML / CSVが変更されていない
 - Required behavior testsを満たす
 - 指定Testsがpassしている
