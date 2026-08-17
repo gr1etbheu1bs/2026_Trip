@@ -44,8 +44,24 @@
     .result strong { font-size:1.5rem; }
     .maps { color:white; background:var(--blue); }
     .notice { padding:16px; border-left:5px solid var(--gold); background:#fff8e7; }
+    .day-planner { padding:clamp(18px,4vw,28px); }
+    .day-controls { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:12px; }
+    .day-controls label { font-weight:800; }
+    .day-controls select { width:100%; min-height:48px; margin-top:4px; padding:8px; border:1px solid var(--line); border-radius:10px; font:inherit; background:white; }
+    .constraint { margin:16px 0; padding:12px; border-radius:10px; color:#654509; background:#fff3cf; }
+    .schedule { display:grid; gap:12px; margin-top:18px; }
+    .schedule-card { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:12px; padding:16px; border:1px solid var(--line); border-left:5px solid var(--green); border-radius:14px; background:#fbfdfb; }
+    .schedule-card.fixed { border-left-color:var(--gold); background:#fffaf0; }
+    .schedule-card h3 { margin:0; font-size:1.05rem; }
+    .schedule-card p { margin:4px 0 0; color:var(--muted); }
+    .schedule-actions { display:grid; grid-template-columns:repeat(2,48px); gap:8px; align-content:start; }
+    .schedule-actions button { width:48px; min-height:48px; margin:0; font-size:1.25rem; }
+    .schedule-actions button:disabled { cursor:not-allowed; opacity:.35; }
+    .warning { margin:12px 0 0; padding:12px; border:2px solid #b64b3d; border-radius:10px; color:#7e2117; background:#fff0ed; font-weight:800; }
+    .add-buttons { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:8px; }
+    .add-buttons button { margin-top:0; }
     footer { padding:24px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--line); }
-    @media (max-width:600px) { header { padding-top:34px; } .wrap { width:min(100% - 24px,1100px); } }
+    @media (max-width:600px) { header { padding-top:34px; } .wrap { width:min(100% - 24px,1100px); } .day-controls,.schedule-card { grid-template-columns:1fr; } .schedule-actions { grid-template-columns:repeat(2,minmax(48px,1fr)); } .schedule-actions button { width:100%; } }
   </style>
 </head>
 <body>
@@ -78,12 +94,25 @@
       <p class="eyebrow">Considering</p><h2 id="candidates-title">検討中候補</h2>
       <p class="intro">4候補は未確定です。カードを選ぶと、固定拠点からの通常時の計画目安を下で確認できます。</p>
       <div class="candidate-grid" data-candidates>
-        <article class="candidate"><span class="tag">カーリング · 検討中</span><h3>風越公園・カーリング90分体験</h3><p>8/21（金）に実施できる可能性あり。予約済みではありません。祖父は見学または別行動予定。</p><div class="meta">ホテルから約15分</div><button type="button" data-pick="curling">この候補を選ぶ</button></article>
-        <article class="candidate same-direction"><span class="tag">テーマパーク · 検討中</span><h3>軽井沢おもちゃ王国</h3><p>雨の心配が少ない日に行きたい遠方候補。竹内ゴルフ練習場と同じ北軽井沢・嬬恋方面です。</p><div class="meta">ホテルから約50分</div><button type="button" data-pick="toy_kingdom">この候補を選ぶ</button></article>
-        <article class="candidate"><span class="tag">パターゴルフ · 検討中</span><h3>軽井沢ゴルフ練習場・パターコース</h3><p>本格ゴルフではなく、家族でパターゴルフをする南軽井沢側の候補です。</p><div class="meta">ホテルから約5分</div><button type="button" data-pick="karuizawa_putter">この候補を選ぶ</button></article>
-        <article class="candidate same-direction"><span class="tag">パターゴルフ · 検討中</span><h3>竹内ゴルフ練習場</h3><p>パターゴルフ18ホール。おもちゃ王国と同じ北軽井沢・嬬恋方面なので、セットで検討できます。</p><div class="meta">ホテルから約40分</div><button type="button" data-pick="takeuchi">この候補を選ぶ</button></article>
+        <article class="candidate"><span class="tag">カーリング · 検討中</span><h3>風越公園・カーリング90分体験</h3><p>8/21（金）に実施できる可能性あり。予約済みではありません。祖父は見学または別行動予定。</p><div class="meta">想定滞在90分（初期目安） · ホテルから約15分</div><button type="button" data-pick="curling">この候補を選ぶ</button></article>
+        <article class="candidate same-direction"><span class="tag">テーマパーク · 検討中</span><h3>軽井沢おもちゃ王国</h3><p>雨の心配が少ない日に行きたい遠方候補。竹内ゴルフ練習場と同じ北軽井沢・嬬恋方面です。</p><div class="meta">想定滞在300分（初期目安） · ホテルから約50分</div><button type="button" data-pick="toy_kingdom">この候補を選ぶ</button></article>
+        <article class="candidate"><span class="tag">パターゴルフ · 検討中</span><h3>軽井沢ゴルフ練習場・パターコース</h3><p>本格ゴルフではなく、家族でパターゴルフをする南軽井沢側の候補です。</p><div class="meta">想定滞在60分（初期目安） · ホテルから約5分</div><button type="button" data-pick="karuizawa_putter">この候補を選ぶ</button></article>
+        <article class="candidate same-direction"><span class="tag">パターゴルフ · 検討中</span><h3>竹内ゴルフ練習場</h3><p>パターゴルフ18ホール。おもちゃ王国と同じ北軽井沢・嬬恋方面なので、セットで検討できます。</p><div class="meta">想定滞在90分（初期目安） · ホテルから約40分</div><button type="button" data-pick="takeuchi">この候補を選ぶ</button></article>
       </div>
       <p class="notice"><strong>ほかの予定:</strong> ボウリングは息子の希望があり旅行中に行う予定ですが、浅間ハイランドパーク方面またはアウトレット周辺のどの施設にするかは未確定です。上田・佐久方面は今回保留です。</p>
+    </section>
+
+    <section class="day-planner panel" aria-labelledby="day-planner-title">
+      <p class="eyebrow">Daily itinerary planner</p><h2 id="day-planner-title">1日の予定を組み立てる</h2>
+      <p class="intro">候補の滞在時間は旅程組み立て用の初期目安です。移動時間も通常時の目安で、出発前にGoogle Mapsで確認してください。</p>
+      <div class="day-controls">
+        <label for="planner-date">日付<select id="planner-date" data-planner-date></select></label>
+        <label for="planner-candidate">追加する候補<select id="planner-candidate" data-planner-candidate></select></label>
+      </div>
+      <div class="add-buttons"><button type="button" data-add-plan>この日の予定に追加</button></div>
+      <p class="constraint" data-constraint hidden></p>
+      <div data-warnings aria-live="polite"></div>
+      <div class="schedule" data-schedule aria-live="polite"></div>
     </section>
 
     <section class="planner" aria-labelledby="planner-title">
@@ -101,10 +130,10 @@
   <script>
     const base = '軽井沢プリンスホテル ウエスト';
     const plans = {
-      curling:{destination:'軽井沢風越公園 / 軽井沢アイスパーク',minutes:15,note:'約4km。通常時の計画目安'},
-      toy_kingdom:{destination:'軽井沢おもちゃ王国',minutes:50,note:'北軽井沢・嬬恋方面。通常時の計画目安'},
-      karuizawa_putter:{destination:'軽井沢ゴルフ練習場・パターコース',minutes:5,note:'通常時の計画目安'},
-      takeuchi:{destination:'竹内ゴルフ練習場',minutes:40,note:'北軽井沢方面。通常時の計画目安'}
+      curling:{name:'風越公園・カーリング90分体験',destination:'軽井沢風越公園 / 軽井沢アイスパーク',minutes:15,stay:90,note:'約4km。通常時の計画目安'},
+      toy_kingdom:{name:'軽井沢おもちゃ王国',destination:'軽井沢おもちゃ王国',minutes:50,stay:300,note:'北軽井沢・嬬恋方面。通常時の計画目安'},
+      karuizawa_putter:{name:'軽井沢ゴルフ練習場・パターコース',destination:'軽井沢ゴルフ練習場・パターコース',minutes:5,stay:60,note:'通常時の計画目安'},
+      takeuchi:{name:'竹内ゴルフ練習場',destination:'竹内ゴルフ練習場',minutes:40,stay:90,note:'北軽井沢方面。通常時の計画目安'}
     };
     const select = document.querySelector('[data-select]');
     function showPlan(id) {
@@ -117,6 +146,80 @@
     select.addEventListener('change', event => showPlan(event.target.value));
     document.querySelectorAll('[data-pick]').forEach(button => button.addEventListener('click', () => { showPlan(button.dataset.pick); document.querySelector('.planner').scrollIntoView({behavior:'smooth'}); }));
     showPlan(select.value);
+
+    const plannerStorageKey = 'karuizawa-2026:daily-itinerary:v1';
+    const dateSelect = document.querySelector('[data-planner-date]');
+    const candidateSelect = document.querySelector('[data-planner-candidate]');
+    const schedule = document.querySelector('[data-schedule]');
+    const warningBox = document.querySelector('[data-warnings]');
+    const constraint = document.querySelector('[data-constraint]');
+    const fixedSchedules = {
+      '2026-08-18': [{id:'meeting',type:'fixed',name:'父親のオンライン会議',destination:base,time:14*60,deadline:13*60+30,stay:0,note:'14:00 anchor（13:30までに会議可能な場所へ）'}],
+      '2026-08-19': [
+        {id:'pickup',type:'fixed',name:'軽井沢駅で祖父を迎える',destination:'軽井沢駅',time:14*60,stay:0,note:'14:00 anchor'},
+        {id:'tennis',type:'fixed',name:'風越公園でテニス',destination:'軽井沢風越公園 / 軽井沢アイスパーク',time:15*60,stay:120,note:'15:00〜17:00'}
+      ]
+    };
+    const travelTimes = new Map([
+      [`${base}|軽井沢ゴルフ練習場・パターコース`,5], [`${base}|軽井沢風越公園 / 軽井沢アイスパーク`,15],
+      [`${base}|竹内ゴルフ練習場`,40], [`${base}|軽井沢おもちゃ王国`,50],
+      ['軽井沢駅|軽井沢風越公園 / 軽井沢アイスパーク',15], ['軽井沢おもちゃ王国|竹内ゴルフ練習場',10], ['竹内ゴルフ練習場|軽井沢おもちゃ王国',10]
+    ]);
+    const dayPlans = (() => { try { return JSON.parse(localStorage.getItem(plannerStorageKey)) || {}; } catch { return {}; } })();
+    const dates = ['2026-08-17','2026-08-18','2026-08-19','2026-08-20','2026-08-21','2026-08-22','2026-08-23'];
+    dates.forEach(date => dateSelect.add(new Option(`${date.slice(5).replace('-','/')}（${'月火水木金土日'[dates.indexOf(date)]}）`,date)));
+    Object.entries(plans).forEach(([id,plan]) => candidateSelect.add(new Option(`${plan.name}（${plan.stay}分）`,id)));
+    function formatTime(minutes) { return `${String(Math.floor(minutes/60)).padStart(2,'0')}:${String(minutes%60).padStart(2,'0')}`; }
+    function itemsForDay(date) {
+      const variables = (dayPlans[date] || []).map(id => ({id,type:'variable',...plans[id]})).filter(item => item.name);
+      return [...variables,...(fixedSchedules[date] || [])].sort((a,b) => a.type === b.type ? 0 : a.type === 'fixed' ? 1 : -1);
+    }
+    function save() { localStorage.setItem(plannerStorageKey,JSON.stringify(dayPlans)); }
+    function renderPlanner() {
+      const date = dateSelect.value;
+      const items = itemsForDay(date);
+      constraint.hidden = date !== '2026-08-20';
+      constraint.textContent = date === '2026-08-20' ? '制約日: 父親は終日会議のため遠方移動不可（近場のみ）' : '';
+      let clock = 9*60, previous = base, uncertain = false;
+      const warnings = [];
+      schedule.replaceChildren();
+      items.forEach((item,index) => {
+        const travel = previous === item.destination ? 0 : travelTimes.get(`${previous}|${item.destination}`);
+        if (travel === undefined) uncertain = true; else clock += travel;
+        let start = clock;
+        if (item.type === 'fixed') {
+          const deadline = item.deadline ?? item.time;
+          if (uncertain) warnings.push(`${item.name}: 移動時間未登録のため到着可否を確認してください。`);
+          else if (clock > deadline) warnings.push(`${item.name}: この並びでは固定予定に間に合いません（到着見込み ${formatTime(clock)}）。`);
+          start = item.time;
+          clock = item.time + item.stay;
+          uncertain = false;
+        } else clock += item.stay;
+        const end = item.type === 'fixed' ? item.time + item.stay : clock;
+        const card = document.createElement('article');
+        card.className = `schedule-card ${item.type === 'fixed' ? 'fixed' : ''}`;
+        const text = document.createElement('div');
+        const timeLabel = item.stay ? `${formatTime(start)}〜${formatTime(end)}` : `${formatTime(start)} anchor`;
+        text.innerHTML = `<h3>${item.name}</h3><p><strong>${item.type === 'fixed' ? '固定予定' : '可変候補'}</strong> · 想定滞在 ${item.stay ? `${item.stay}分` : '未設定'} · ${timeLabel}</p><p>直前地点から: ${travel === undefined ? '移動時間未登録' : `移動 約${travel}分`}${item.note ? ` · ${item.note}` : ''}</p>`;
+        card.append(text);
+        if (item.type === 'variable') {
+          const variableIndex = (dayPlans[date] || []).indexOf(item.id);
+          const actions = document.createElement('div'); actions.className = 'schedule-actions';
+          [['↑',-1,'上へ移動'],['↓',1,'下へ移動']].forEach(([symbol,delta,label]) => {
+            const button = document.createElement('button'); button.type='button'; button.textContent=symbol; button.setAttribute('aria-label',`${item.name}を${label}`);
+            button.disabled = variableIndex + delta < 0 || variableIndex + delta >= (dayPlans[date] || []).length;
+            button.addEventListener('click',() => { const list=dayPlans[date]; [list[variableIndex],list[variableIndex+delta]]=[list[variableIndex+delta],list[variableIndex]]; save(); renderPlanner(); }); actions.append(button);
+          });
+          card.append(actions);
+        }
+        schedule.append(card); previous = item.destination;
+      });
+      if (!items.length) schedule.innerHTML = '<p>予定はまだありません。上の候補を追加してください。</p>';
+      warningBox.innerHTML = warnings.map(message => `<p class="warning">⚠ ${message}</p>`).join('');
+    }
+    document.querySelector('[data-add-plan]').addEventListener('click',() => { const date=dateSelect.value; dayPlans[date] ||= []; if (!dayPlans[date].includes(candidateSelect.value)) dayPlans[date].push(candidateSelect.value); save(); renderPlanner(); });
+    dateSelect.addEventListener('change',renderPlanner);
+    renderPlanner();
   </script>
 </body>
 </html>
