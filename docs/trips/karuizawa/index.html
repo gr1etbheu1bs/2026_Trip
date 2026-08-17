@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="2026年軽井沢旅行の実績、固定予定、候補と移動時間を確認する計画ページ">
+  <title>2026 軽井沢旅行</title>
+  <style>
+    :root { color-scheme: light; --ink:#18332d; --muted:#5e706b; --paper:#f7f5ed; --card:#fff; --green:#28745f; --gold:#c28a24; --blue:#3b6f8f; --line:#dce4de; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans JP",sans-serif; line-height:1.65; }
+    a { color:inherit; }
+    header { padding:48px 20px 40px; color:white; background:linear-gradient(135deg,#174f43,#2f8068 65%,#87a76f); }
+    .wrap { width:min(1100px,calc(100% - 32px)); margin:auto; }
+    .eyebrow { margin:0 0 8px; font-size:.78rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; opacity:.85; }
+    h1 { margin:0; font-size:clamp(2rem,7vw,4rem); line-height:1.12; }
+    header p { max-width:720px; margin:16px 0 0; }
+    .facts { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+    .fact { padding:7px 13px; border:1px solid #ffffff66; border-radius:99px; background:#ffffff18; font-weight:700; }
+    main { padding:38px 0 64px; }
+    section { margin-bottom:42px; }
+    h2 { margin:0 0 14px; font-size:clamp(1.45rem,4vw,2rem); }
+    .intro { color:var(--muted); margin-top:-8px; }
+    .timeline-grid,.candidate-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:16px; }
+    .panel,.candidate,.planner { border:1px solid var(--line); border-radius:18px; background:var(--card); box-shadow:0 8px 24px #15372b0b; }
+    .panel { padding:22px; border-top:5px solid var(--blue); }
+    .panel.fixed { border-top-color:var(--gold); }
+    .panel h3,.candidate h3 { margin:0 0 10px; }
+    .item { padding:13px 0; border-top:1px solid var(--line); }
+    .item:first-of-type { border-top:0; }
+    .item time { display:block; color:var(--muted); font-size:.85rem; font-weight:700; }
+    .item p { margin:3px 0 0; }
+    .candidate { display:flex; flex-direction:column; padding:20px; }
+    .tag { align-self:flex-start; padding:3px 10px; border-radius:99px; color:#145342; background:#dff2e9; font-size:.78rem; font-weight:800; }
+    .candidate p { color:var(--muted); }
+    .meta { margin-top:auto; padding-top:12px; font-weight:800; }
+    button,.maps { display:inline-flex; align-items:center; justify-content:center; min-height:44px; border:0; border-radius:10px; font:inherit; font-weight:800; cursor:pointer; text-decoration:none; }
+    button { width:100%; margin-top:12px; color:white; background:var(--green); }
+    button:hover,button:focus-visible { background:#195b49; }
+    .same-direction { border-color:#bcd8cb; background:#f3faf6; }
+    .planner { padding:clamp(20px,5vw,32px); background:#163e35; color:white; }
+    .planner select { width:100%; min-height:48px; padding:8px 12px; border:0; border-radius:10px; font:inherit; }
+    .result { display:grid; gap:8px; margin-top:18px; padding:18px; border-radius:14px; color:var(--ink); background:white; }
+    .result strong { font-size:1.5rem; }
+    .maps { color:white; background:var(--blue); }
+    .notice { padding:16px; border-left:5px solid var(--gold); background:#fff8e7; }
+    footer { padding:24px 16px; text-align:center; color:var(--muted); border-top:1px solid var(--line); }
+    @media (max-width:600px) { header { padding-top:34px; } .wrap { width:min(100% - 24px,1100px); } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <p class="eyebrow">Karuizawa 2026</p>
+      <h1>2026 軽井沢旅行</h1>
+      <p>実績と動かせない予定を押さえながら、家族で行きたい候補を選ぶための旅行専用ページです。</p>
+      <div class="facts"><span class="fact">2026-08-16〜2026-08-23</span><span class="fact">拠点: 軽井沢プリンスホテル ウエスト</span></div>
+    </div>
+  </header>
+  <main class="wrap">
+    <section aria-labelledby="timeline-title">
+      <p class="eyebrow">Trip status</p><h2 id="timeline-title">実績と固定予定</h2>
+      <div class="timeline-grid">
+        <article class="panel"><h3>✓ 訪問済み・実績</h3>
+          <div class="item"><time>8/16（日）午後〜夜</time><p>軽井沢へ車移動。途中のローソンで昼食を購入し、17:30頃アウトレットへ到着。店名未確定のパン屋で軽食後、新軽井沢の花火大会を観覧。武舎煙火の社長と話し、ホテルのコテージへチェックイン。</p></div>
+          <div class="item"><time>8/17（月）</time><p>朝食ブッフェを利用。息子の疲れを考慮し、プリンスウエスト・アウトレット周辺でゆっくり過ごす。</p></div>
+        </article>
+        <article class="panel fixed"><h3>! 固定予定・制約</h3>
+          <div class="item"><time>8/18（火）14時頃</time><p>父親のオンライン会議。安定した電波と会議可能な場所が必要。</p></div>
+          <div class="item"><time>8/19（水）14時頃 / 15:00〜17:00</time><p>祖父を軽井沢駅へ迎え、そのまま風越公園へ移動してテニス。</p></div>
+          <div class="item"><time>8/20（木）終日</time><p>父親が会議。遠方移動はせず、家族はホテル内またはアウトレット周辺で過ごす予定。</p></div>
+          <div class="item"><time>滞在中毎朝</time><p>宿泊プランに含まれる朝食ブッフェを利用予定。</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section aria-labelledby="candidates-title">
+      <p class="eyebrow">Considering</p><h2 id="candidates-title">検討中候補</h2>
+      <p class="intro">4候補は未確定です。カードを選ぶと、固定拠点からの通常時の計画目安を下で確認できます。</p>
+      <div class="candidate-grid" data-candidates>
+        <article class="candidate"><span class="tag">カーリング · 検討中</span><h3>風越公園・カーリング90分体験</h3><p>8/21（金）に実施できる可能性あり。予約済みではありません。祖父は見学または別行動予定。</p><div class="meta">ホテルから約15分</div><button type="button" data-pick="curling">この候補を選ぶ</button></article>
+        <article class="candidate same-direction"><span class="tag">テーマパーク · 検討中</span><h3>軽井沢おもちゃ王国</h3><p>雨の心配が少ない日に行きたい遠方候補。竹内ゴルフ練習場と同じ北軽井沢・嬬恋方面です。</p><div class="meta">ホテルから約50分</div><button type="button" data-pick="toy_kingdom">この候補を選ぶ</button></article>
+        <article class="candidate"><span class="tag">パターゴルフ · 検討中</span><h3>軽井沢ゴルフ練習場・パターコース</h3><p>本格ゴルフではなく、家族でパターゴルフをする南軽井沢側の候補です。</p><div class="meta">ホテルから約5分</div><button type="button" data-pick="karuizawa_putter">この候補を選ぶ</button></article>
+        <article class="candidate same-direction"><span class="tag">パターゴルフ · 検討中</span><h3>竹内ゴルフ練習場</h3><p>パターゴルフ18ホール。おもちゃ王国と同じ北軽井沢・嬬恋方面なので、セットで検討できます。</p><div class="meta">ホテルから約40分</div><button type="button" data-pick="takeuchi">この候補を選ぶ</button></article>
+      </div>
+      <p class="notice"><strong>ほかの予定:</strong> ボウリングは息子の希望があり旅行中に行う予定ですが、浅間ハイランドパーク方面またはアウトレット周辺のどの施設にするかは未確定です。上田・佐久方面は今回保留です。</p>
+    </section>
+
+    <section class="planner" aria-labelledby="planner-title">
+      <p class="eyebrow">Travel-time planner</p><h2 id="planner-title">候補選択 / 移動時間</h2>
+      <p>固定拠点からの車移動時間を比較します。これは<strong>通常時の旅程組み立て用の概算目安</strong>で、リアルタイムの渋滞・規制は反映しません。</p>
+      <label for="candidate-select">候補を選択</label>
+      <select id="candidate-select" data-select>
+        <option value="curling">風越公園・カーリング90分体験</option><option value="toy_kingdom">軽井沢おもちゃ王国</option><option value="karuizawa_putter">軽井沢ゴルフ練習場・パターコース</option><option value="takeuchi">竹内ゴルフ練習場</option>
+      </select>
+      <div class="result" aria-live="polite"><span>軽井沢プリンスホテル ウエストから</span><strong data-time>約15分</strong><span data-note>通常時の計画目安</span><a class="maps" data-maps href="#" target="_blank" rel="noopener noreferrer">Google Mapsで実際の経路を確認</a></div>
+      <p>このページの目安値は日程計画用です。出発直前はGoogle Mapsで実際の交通状況を確認してください。</p>
+    </section>
+  </main>
+  <footer>軽井沢旅行専用ページ · 料金・営業・天候・交通状況は出発前に再確認してください。</footer>
+  <script>
+    const base = '軽井沢プリンスホテル ウエスト';
+    const plans = {
+      curling:{destination:'軽井沢風越公園 / 軽井沢アイスパーク',minutes:15,note:'約4km。通常時の計画目安'},
+      toy_kingdom:{destination:'軽井沢おもちゃ王国',minutes:50,note:'北軽井沢・嬬恋方面。通常時の計画目安'},
+      karuizawa_putter:{destination:'軽井沢ゴルフ練習場・パターコース',minutes:5,note:'通常時の計画目安'},
+      takeuchi:{destination:'竹内ゴルフ練習場',minutes:40,note:'北軽井沢方面。通常時の計画目安'}
+    };
+    const select = document.querySelector('[data-select]');
+    function showPlan(id) {
+      const plan = plans[id]; if (!plan) return;
+      select.value = id;
+      document.querySelector('[data-time]').textContent = `約${plan.minutes}分`;
+      document.querySelector('[data-note]').textContent = plan.note;
+      document.querySelector('[data-maps]').href = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(base)}&destination=${encodeURIComponent(plan.destination)}&travelmode=driving`;
+    }
+    select.addEventListener('change', event => showPlan(event.target.value));
+    document.querySelectorAll('[data-pick]').forEach(button => button.addEventListener('click', () => { showPlan(button.dataset.pick); document.querySelector('.planner').scrollIntoView({behavior:'smooth'}); }));
+    showPlan(select.value);
+  </script>
+</body>
+</html>
